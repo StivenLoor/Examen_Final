@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/txtTitulo2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="564dp"
         android:layout_marginBottom="50dp"
         android:background="#FFFFFF"
@@ -26,10 +27,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.932" />
 
-
     <ImageView
+        android:id="@+id/img_uteq"
         android:layout_width="55dp"
-        android:layout_height="249dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/logo_uteq"
@@ -37,7 +38,20 @@
         app:layout_constraintLeft_toLeftOf="@id/txtTitulo2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.343" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/img_facul"
+        android:layout_width="55dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="356dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_telematica"
+        app:layout_constraintBottom_toBottomOf="@id/txtTitulo2"
+        app:layout_constraintRight_toRightOf="@id/txtTitulo2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <FrameLayout
         android:id="@+id/container"
@@ -91,14 +105,7 @@
         app:layout_constraintLeft_toRightOf="@id/btCamera"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <ImageView
-        android:layout_width="55dp"
-        android:layout_height="320dp"
-        android:layout_marginEnd="8dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo_telematica"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="-120dp"
-        tools:ignore="MissingConstraints" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
