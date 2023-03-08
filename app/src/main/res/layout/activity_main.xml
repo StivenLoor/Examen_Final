@@ -7,49 +7,50 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/txtTitulo"
+        android:id="@+id/txtTitulo2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="#FFEB3B"
-        android:text="Google ML Kit"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="564dp"
+        android:layout_marginBottom="50dp"
+        android:background="#FFFFFF"
+        android:text="Universidad Técnica Estatal de Quevedo\nFacultad de Ciencias de la Ingeniera\nCarrera Telemática"
         android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.932" />
 
-    <Button
-        android:id="@+id/btGallery"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_margin="5dp"
-        android:onClick="abrirGaleria"
-        android:text="Galería"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btCamera"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
 
-    <Button
-        android:id="@+id/btCamera"
-        android:layout_margin="5dp"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:onClick="abrirCamara"
-        android:text="Cámara"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
-        app:layout_constraintLeft_toRightOf="@+id/btGallery"
-        app:layout_constraintRight_toRightOf="parent" />
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="249dp"
+        android:layout_marginStart="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_uteq"
+        app:layout_constraintBottom_toTopOf="@id/txtTitulo2"
+        app:layout_constraintLeft_toLeftOf="@id/txtTitulo2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.343" />
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@android:color/black"
         android:layout_margin="10dp"
+        android:background="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/txtresults"
-        app:layout_constraintTop_toBottomOf="@+id/btGallery">
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo2"
+        app:layout_constraintVertical_bias="0.35"
+        tools:layout_editor_absoluteX="27dp" >
 
+    </FrameLayout>
 
     <TextView
         android:id="@+id/txtresults"
@@ -59,41 +60,45 @@
         android:inputType="textMultiLine"
         android:scrollbars="vertical"
         android:text="Resultados:"
-        app:layout_constraintBottom_toTopOf="@id/btObject"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@id/btCamera"
         tools:layout_editor_absoluteX="10dp" />
 
     <Button
-        android:id="@+id/btText"
+        android:id="@+id/btCamera"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_margin="10dp"
-        android:onClick="OCRfx"
-        android:text="OCR"
+        android:layout_marginBottom="84dp"
+        android:onClick="abrirCamara"
+        android:text="Camara"
+        app:icon="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btFace" />
+        app:layout_constraintRight_toLeftOf="@id/btGallery" />
 
     <Button
-        android:id="@+id/btObject"
-        android:layout_width="150dp"
-        android:layout_height="55dp"
-        android:layout_margin="10dp"
-        android:onClick="Objectofx"
-        android:text="Objetos"
-
-        app:layout_constraintBottom_toTopOf="@id/btText"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-        android:id="@+id/btFace"
+        android:id="@+id/btGallery"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_margin="10dp"
-        android:onClick="Rostrosfx"
-        android:text="Rostros"
+        android:onClick="btGallery"
+        android:text="Galeria"
+        app:icon="@android:drawable/ic_menu_gallery"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/btText"
+        app:layout_constraintLeft_toRightOf="@id/btCamera"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="320dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_telematica"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="-120dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

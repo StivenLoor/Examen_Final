@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.prueba_tensor_flow.ml.Edificios;
 import com.example.prueba_tensor_flow.ml.ModelBanderas;
 import com.example.prueba_tensor_flow.ml.Modelros;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnSuccessListener
     public String texto;
 
     ArrayList<String> permisosNoAprobados;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,17 +169,10 @@ public class MainActivity extends AppCompatActivity implements OnSuccessListener
 
         return list;
     }
-    /*  public void abrirGaleria (View view){
-        Intent i = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(i, REQUEST_GALLERY);
-    }*/
 
     public void abrirCamara (View view){
         setFragment();
 
-        //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //startActivityForResult(intent, REQUEST_CAMERA);
 
     }
     @Override
@@ -200,10 +196,10 @@ public class MainActivity extends AppCompatActivity implements OnSuccessListener
     }
     public void PersonalizedModel(View v) {
         try {
-            ModelBanderas model = ModelBanderas.newInstance(getApplicationContext());
+            Edificios model = Edificios.newInstance(getApplicationContext());
             TensorImage image = TensorImage.fromBitmap(mSelectedImage);
 
-            ModelBanderas.Outputs outputs = model.process(image);
+            Edificios.Outputs outputs = model.process(image);
             List<Category> probability = outputs.getProbabilityAsCategoryList();
 
             Collections.sort(probability, new CategoryComparator());
@@ -218,44 +214,7 @@ public class MainActivity extends AppCompatActivity implements OnSuccessListener
             txtResults.setText("Error al procesar Modelo");
         }
     }
-    /*  public void Objectofx(View v) {
-        InputImage image = InputImage.fromBitmap(mSelectedImage, 0);
-        ImageLabeler labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS);
-        labeler.process(image)
-                .addOnSuccessListener(new OnSuccessListener<List<ImageLabel>>() {
-                    @Override
-                    public void onSuccess(List<ImageLabel> labels) {
-                        texto="";
-                        for (ImageLabel label : labels) {
-                            texto += "Objeto: " + label.getIndex() + "  " +label.getText()+"\nConfianza: "+label.getConfidence()*100+"%"+"\n";
-                        }
-                        txtResults.setText(texto);
-                        txtResults.setMovementMethod(new ScrollingMovementMethod());
-                    }
-                })
-                .addOnFailureListener(this);
-    }
-    public void Rostrosfx(View  v) {
-        InputImage image = InputImage.fromBitmap(mSelectedImage, 0);
-        FaceDetectorOptions options =
-                new FaceDetectorOptions.Builder()
-                        .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
-                        .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
-                        .build();
-        FaceDetector detector = FaceDetection.getClient(options);
-        detector.process(image)
-                .addOnSuccessListener(new OnSuccessListener<List<Face>>() {
-                    @Override
-                    public void onSuccess(List<Face> faces) {
-                        if (faces.size() == 0) {
-                            txtResults.setText("No Hay rostros");
-                        }else{
-                            txtResults.setText("Hay " + faces.size() + " rostro(s)");
-                        }
-                    }
-                })
-                .addOnFailureListener(this);
-    }*/
+
     public void OCRfx(View v) {
         InputImage image = InputImage.fromBitmap(mSelectedImage, 0);
         TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
@@ -330,15 +289,19 @@ public class MainActivity extends AppCompatActivity implements OnSuccessListener
         rgbFrameBitmap.setPixels(rgbBytes, 0, previewWidth, 0, 0, previewWidth, previewHeight);
 
         try {
-            ModelBanderas model = ModelBanderas.newInstance(getApplicationContext());
+            Edificios model = Edificios.newInstance(getApplicationContext());
             TensorImage image = TensorImage.fromBitmap(rgbFrameBitmap);
 
-            ModelBanderas.Outputs outputs = model.process(image);
+            Edificios.Outputs outputs = model.process(image);
             List<Category> probability = outputs.getProbabilityAsCategoryList();
             Collections.sort(probability, new CategoryComparator());
             String res="";
-            for (int i = 0; i < probability.size(); i++)
-                res = res + probability.get(i).getLabel() +  " " +  probability.get(i).getScore()*100 + " % \n";
+
+            for (int i = 0; i < probability.size(); i++) {
+                if(probability.get(i).getScore()*100>50) {
+                    res = res + probability.get(i).getLabel() + " " + probability.get(i).getScore() * 100 + " % \n";
+                }
+            }
 
             txtResults.setText(res);
             model.close();
